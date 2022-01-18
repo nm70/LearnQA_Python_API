@@ -2,9 +2,10 @@ import requests
 import pytest
 
 from lib.assertions import Assertions
+from lib.base_case import BaseCase
 
 #Ex13 User Agent
-class TestUserAgent:
+class TestUserAgent(BaseCase):
 
     agent_params = [
         (
@@ -19,7 +20,7 @@ class TestUserAgent:
         (
             {
             'User-Agent' : 'Mozilla/5.0 (iPad; CPU OS 13_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/91.0.4472.77 Mobile/15E148 Safari/604.1',
-            'Expected-values' : {'platform' : 'Mobile',
+            'Expected-values' : {'platform' : 'Mle',
                                 'browser' : 'Chrome',
                                 'device' : 'iOS'
                                  }
@@ -55,7 +56,9 @@ class TestUserAgent:
 
     @pytest.mark.parametrize('user_agent', agent_params)
     def test_user_agent_check(self, user_agent):
+
         user_agent_dict = dict(user_agent)
+        print(user_agent_dict)
         user_agent_value = user_agent_dict['User-Agent']
 
         # expected values
@@ -73,7 +76,7 @@ class TestUserAgent:
             response,
             'platform',
             expected_platform,
-            f'{user_agent_value} expected platform: {expected_platform} is not equal to actual platform'
+            f"User Agent: '{user_agent_value}' expected platform: '{expected_platform}' is not equal to actual platform:"
         )
 
         # check browser
@@ -81,7 +84,7 @@ class TestUserAgent:
             response,
             'browser',
             expected_browser,
-            f'{user_agent_value} expected browser: {expected_browser} is not equal to actual browser'
+            f"User Agent: '{user_agent_value}' expected browser: '{expected_browser}' is not equal to actual browser:"
         )
 
         # check device
@@ -89,5 +92,5 @@ class TestUserAgent:
             response,
             'device',
             expected_device,
-            f'{user_agent_value} expected device: {expected_device} is not equal to actual device'
+            f"User Agent: '{user_agent_value}' expected device: '{expected_device}' is not equal to actual device:"
         )
