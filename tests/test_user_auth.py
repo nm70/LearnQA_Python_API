@@ -18,6 +18,7 @@ class TestUserAuth(BaseCase):
         }
         # запрос - 1 метод - авторизации залогиниться
         self.response1 = MyRequests.post("/user/login", data = payload)
+
         # для проверки в ответ получим куки, токен, id пользователя
         self.response1_values = self.get_response_values_after_login(self.response1)
 

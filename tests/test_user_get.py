@@ -6,6 +6,7 @@ from lib.assertions import Assertions
 class TestUserGet(BaseCase):
 
     # тест на просмотр данных не авторизованного пользоватля по id
+
     # должен возвращать только username
     # долден не возвращать - email, firstName, lastName
     def test_get_user_details_not_auth(self):
@@ -19,10 +20,6 @@ class TestUserGet(BaseCase):
 
 
     # тест на просмотр данных авторизованного пользователя
-    # 1 залогинимся
-    # 2 в ответ получим куку, токен , user_id
-    #
-    #
     def test_get_user_details_auth_as_same_user(self):
 
         data = {
@@ -76,18 +73,13 @@ class TestUserGet(BaseCase):
             'User id from auth method if not equal to User id from check method'
         )
 
-
-        # 3 вернём данные не авторизированного пользователя
-        response3= MyRequests.get(f"/user/1")
-
-        # 4проверим, что пользовател не авторизирован, получим user_id = 0
-        response4= MyRequests.get(f"/user/auth")
-        print
-        # проверим, что пользователь не авторизирован
-        Assertions.assert_json_value_by_name(response4, 'user_id', 0, "User authorized")
+        # 3 вернём данные не авторизированного пользователя и
+        # проверим, что пользователь не авторизирован, получим user_id = 0
+        response3 = self.get_not_authorized_user_and_check_that_the_user_ID_is_zero(1)
 
         # проверим, что запрос вернул username
         Assertions.assert_json_has_key(response3, 'username')
+
         # проверим, что запрос не вернул другие данные
         excepted_keys = ["email", "firstName", "lastName"]
         Assertions.assert_json_has_not_keys(response3, excepted_keys)

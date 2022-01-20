@@ -20,13 +20,8 @@ class TestUserRegister(BaseCase):
 
 
     def test_create_user_successfully(self):
-
         data = self.prepare_registration_data()
-
-        response = MyRequests.post("/user", data = data)
-
-        Assertions.assert_status_code(response, 200)
-        Assertions.assert_json_has_key(response, 'id')
+        self.create_user_and_check_status_code(data)
 
 
     # тест негативный на создание пользователя с существующим email
