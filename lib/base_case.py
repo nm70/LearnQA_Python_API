@@ -15,16 +15,19 @@ class BaseCase:
         assert cookie_name in response.cookies, f"Cannot find cookie with name {cookie_name} in the last response"
         return response.cookies[cookie_name]
 
+
     # получить значение заголовка
     def get_header(self, response: Response, header_name):
         # проверим что заголовок есть в ответе
         assert header_name in response.headers, f"Cannot find header with name {header_name} in the last response"
         return response.headers[header_name]
 
+
     # получить значение ключа из JSON формата
     def get_json_value(self, response: Response, name):
         try:
             response_as_dict = response.json()
+
         except json.decoder.JSONDecodeError:
             assert False, f"Response is not JSON format. Response text is '{response.text}'"
 
@@ -57,6 +60,7 @@ class BaseCase:
             'email': email
         }
 
+
     def get_random_string(self, expected_len: int = 1):
         letters = string.ascii_letters
         random_data = ''.join(random.choice(letters) for i in range(expected_len))
@@ -79,6 +83,7 @@ class BaseCase:
         Assertions.assert_json_has_key(response, "id")
         return response
 
+
     def edit_user_and_check_status_code(self, data: dict, expected_status_code: int = 200):
         response = MyRequests.put(f"/user/{data['user_id']}", data=data)
         Assertions.assert_status_code(response, expected_status_code)
@@ -92,5 +97,4 @@ class BaseCase:
         #проверим, что пользовател не авторизирован, получим user_id = 0
         response2= MyRequests.get(f"/user/auth")
         Assertions.assert_json_value_by_name(response2, 'user_id', 0, "User authorized")
-
         return response

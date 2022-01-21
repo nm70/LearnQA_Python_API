@@ -16,7 +16,7 @@ class TestUserAuth(BaseCase):
             'email' : 'vinkotov@example.com',
             'password' : '1234'
         }
-        # запрос - 1 метод - авторизации залогиниться
+        # запрос - 1 метод - залогиниться
         self.response1 = MyRequests.post("/user/login", data = payload)
 
         # для проверки в ответ получим куки, токен, id пользователя
