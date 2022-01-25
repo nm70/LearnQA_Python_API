@@ -1,6 +1,7 @@
 from requests import Response
 import json
 
+
 class Assertions:
 
     @staticmethod
@@ -37,7 +38,7 @@ class Assertions:
             assert False, f"Response is not JSON format. Response text is '{response.text}'"
 
         for name in names:
-            assert name in response_as_dict, f"Response JSON doesn't have key '{name}'"
+            assert name in response_as_dict, f"Response JSON doesn't have key '{name}' in '{names}'"
 
 
     # проверим json не имеет ключ
@@ -60,7 +61,7 @@ class Assertions:
             assert False, f"Response is not JSON format. Response text is '{response.text}'"
 
         for name in names:
-            assert name not in response_as_dict, f"Response JSON shouldn't have key '{name}'. But it's present!"
+            assert name not in response_as_dict, f"Response JSON shouldn't have key '{name}' in 'names'. But it's present!"
 
 
     # проверим код ответа сервера соответствует ожидаемому

@@ -1,12 +1,15 @@
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+import allure
 
+@allure.epic('Test user delete cases')
 class TestUserDelete(BaseCase):
 
     # Ex 18_1
-    # тест не возможно удалитть пользователя с ID 2
-    def test_can_delete_user_by_id_2(self):
+    # тест не возможно удалить пользователя с ID 2
+    @allure.description('Test can not delete user with id 2')
+    def test_can_not_delete_user_with_id_2(self):
 
         login_data = {
             'email': 'vinkotov@example.com',
@@ -37,6 +40,7 @@ class TestUserDelete(BaseCase):
     # затем попробовать получить его данные по ID
     # убедиться, что пользователь действительно удален.
 
+    @allure.description('Test can delete authorized user')
     def test_can_delete_auth_user(self):
 
         # 1 Create user
@@ -74,6 +78,7 @@ class TestUserDelete(BaseCase):
     # залогиниться
     # создать полльзователя
     # удалить данные, только что созданного пользователя,
+    @allure.description('Test authorized user can delete data another user (negative)')
     def  test_negative_authorized_user_can_delete_data_another_user(self):
 
         # 1 LOGIN

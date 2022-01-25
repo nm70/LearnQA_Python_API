@@ -1,14 +1,16 @@
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
+import allure
 
 
+@allure.epic('Get user cases')
 class TestUserGet(BaseCase):
 
     # тест на просмотр данных не авторизованного пользоватля по id
-
     # должен возвращать только username
     # долден не возвращать - email, firstName, lastName
+    @allure.description('Test get details not authorised user')
     def test_get_user_details_not_auth(self):
 
         response = MyRequests.get(f"/user/2")
@@ -20,6 +22,7 @@ class TestUserGet(BaseCase):
 
 
     # тест на просмотр данных авторизованного пользователя
+    @allure.description('Test get details authorised user')
     def test_get_user_details_auth_as_same_user(self):
 
         data = {
@@ -47,7 +50,7 @@ class TestUserGet(BaseCase):
     # тест, для авторизованного пользователя получить данные другого неавторизованного пользователя
     # должен возвращать только username
     # долден не возвращать - email, firstName, lastName
-
+    @allure.description('Test get for authorized user details of another unauthorized user')
     def test_get_for_authorized_user_details_of_another_unauthorized_user(self):
 
         data = {
